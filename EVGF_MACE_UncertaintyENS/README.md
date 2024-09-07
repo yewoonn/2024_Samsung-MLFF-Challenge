@@ -6,18 +6,24 @@
 ### Evaluate
 - Energy&Force(EF) : 체크포인트 리스트의 첫번째 체크포인트의 모델로 Energy와 Force 예측
 - Uncertainty : 체크포인트 리스트의 모든 모델의 에너지의 표준편차로 uncertainty 계산
-(yewon/Samsung_MLFF_Models/EVGF_MACE_UncertaintyENS/src/md_evaluate/base_evaluator.py의 self.ckpt_list에 체크포인트 추가)
+(/src/md_evaluate/base_evaluator.py의 self.ckpt_list에 체크포인트 추가)
 
 ### 제출 결과
-- 0908_pred_by_mace_onlyUn.csv : mace + EdgeNet 4hop epoch 100 + Only Uncertainty ensemble (train-20240907_152048/best_checkpoint.pt, ckpt_ep60) 
--> 5.6837979706/0.5816688889
+- **ID#1** 0908_pred_by_mace_onlyUn.csv : mace + EdgeNet 3hop epoch 100 + Only Uncertainty ensemble (train-20240907_152048/best_checkpoint.pt, ckpt_ep60)
+
+    |ID|EF-metric|OOD|
+    |--|---------|---|
+    |#1 | 5.6837979706 | 0.5816688889 |
 
 ### 명령어
 1. Train : ./run_train.sh [GPU] MACE HfO
-    ./run_train.sh 0 MACE HfOcd
+    ./run_train.sh 0 MACE HfO
 
 2. Evaluate : ./run_evaluate_ef.sh [GPU] [체크 포인트 경로] [Leaderboard 데이터 경로]
     ./run_evaluate_ef.sh 0 ../../train_results/HfO/MACE/checkpoints/train-20240907_152048/best_checkpoint.pt ../../datasets/HfO/leaderboard.xyz
+   - EVGF shift_taps 변수 확인 (shift_taps = 3일 때 2 hop)
+   - base_evaluator.py의 ckpt_list에 체크포인트 리스트 추가
+     (체크 포인트마다 모델 종류가 다를 경우, 오류 발생)
 
 
 ### 수정 파일

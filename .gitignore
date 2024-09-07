@@ -1,0 +1,6 @@
+EVGF_MACE_UncertaintyENS/datasets/HfO/
+EVGF_MACE_UncertaintyENS/codebases
+
+
+*.xyz
+*.lmdb

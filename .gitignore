@@ -4,6 +4,9 @@ EVGF_MACE_UncertaintyENS/codebases
 EVGF_MACE_AllENS/datasets/HfO/
 EVGF_MACE_AllENS/codebases
 
+MACE_UncertaintyENS/datasets/HfO/
+MACE_UncertaintyENS/codebases
+
 MACE_AllENS/datasets/HfO/
 MACE_AllENS/codebases
 

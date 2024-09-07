@@ -1,0 +1,57 @@
+dataset:
+- normalize_labels: true
+  normalize_labels_json: datasets/HfO/atom_graph_rmax6.0_maxneighbor50/normalize_stats.json
+  per_atom: true
+  src: datasets/HfO/atom_graph_rmax6.0_maxneighbor50/train.lmdb
+- src: datasets/HfO/atom_graph_rmax6.0_maxneighbor50/valid.lmdb
+- src: datasets/HfO/atom_graph_rmax6.0_maxneighbor50/test.lmdb
+logger: files
+model:
+  E0s: average
+  MLP_irreps: 16x0e
+  chemical_symbols:
+  - O
+  - Hf
+  correlation: 3
+  cutoff: 6.0
+  gate: silu
+  hidden_irreps: 32x0e + 32x1o + 32x2e
+  max_ell: 3
+  max_neighbors: 50
+  name: mace
+  num_cutoff_basis: 5
+  num_interactions: 2
+  num_radial_basis: 8
+  otf_graph: false
+  regress_forces: true
+  scaling: rms_forces_scaling
+  shifting: true
+  use_pbc: true
+optim:
+  batch_size: 16
+  ema_decay: 0.99
+  energy_coefficient: 1
+  eval_batch_size: 16
+  force_coefficient: 1
+  loss_energy: energy_per_atom_mse
+  loss_force: force_per_dim_mse
+  lr_initial: 0.01
+  max_epochs: 3
+  num_workers: 2
+  optimizer: Adam
+  optimizer_params:
+    amsgrad: false
+  scheduler: LinearLR
+  weight_decay: 5.0e-07
+task:
+  dataset: lmdb
+  description: Regressing to energies and forces for DFT trajectories of HfO
+  eval_on_free_atoms: false
+  metrics:
+  - energy_per_atom_mae
+  - energy_per_atom_mse
+  - forces_mae
+  - forces_mse
+  primary_metric: forces_mse
+  train_on_free_atoms: false
+trainer: forces_mace

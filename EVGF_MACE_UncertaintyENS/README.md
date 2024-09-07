@@ -18,10 +18,13 @@
 ### 명령어
 1. Train : ./run_train.sh [GPU] MACE HfO
     ./run_train.sh 0 MACE HfO
+   - HfO 파일 복붙해서 추가하기
+   - EVGF shift_taps 변수 확인 (n_shift_taps = 3일 때 2 hop)
+     (path: **RealAgnosticResidualInteractionBlock** /codebases/mace/mace/modules/blocks.py)
 
 2. Evaluate : ./run_evaluate_ef.sh [GPU] [체크 포인트 경로] [Leaderboard 데이터 경로]
     ./run_evaluate_ef.sh 0 ../../train_results/HfO/MACE/checkpoints/train-20240907_152048/best_checkpoint.pt ../../datasets/HfO/leaderboard.xyz
-   - EVGF shift_taps 변수 확인 (shift_taps = 3일 때 2 hop)
+   - 모델 훈련 폴더와 예측 폴더 동일하게 유지 (shift_taps도 바뀌면 안됨)
    - base_evaluator.py의 ckpt_list에 체크포인트 리스트 추가
      (체크 포인트마다 모델 종류가 다를 경우, 오류 발생)
 

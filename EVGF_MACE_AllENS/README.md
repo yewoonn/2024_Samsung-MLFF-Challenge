@@ -29,6 +29,7 @@
 2. Evaluate : ./run_evaluate_ef.sh [GPU] [체크 포인트 경로] [Leaderboard 데이터 경로]
     ./run_evaluate_ef.sh 0 ../../train_results/HfO/MACE/checkpoints/train-20240907_152048/best_checkpoint.pt ../../datasets/HfO/leaderboard.xyz
    - 모델 훈련 폴더와 예측 폴더 동일하게 유지 (shift_taps도 바뀌면 안됨)
+   - 명령어에 있는 체크 포인트는 입력에 포함 X
    - base_evaluator.py의 ckpt_list에 체크포인트 리스트 추가
      (체크 포인트마다 모델 종류가 다를 경우, 오류 발생)
 

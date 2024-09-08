@@ -18,7 +18,7 @@
 ### 명령어
 1. Train : ./run_train.sh [GPU] MACE HfO
     ./run_train.sh 0 MACE HfO
-   - HfO 파일 복붙해서 추가하기
+   - HfO, codebases 파일 복붙해서 추가하기 (**/codebases/mace/mace/modules** Github 코드 유지)
    - EVGF shift_taps 변수 확인 (n_shift_taps = 3일 때 2 hop)
      (path: **RealAgnosticResidualInteractionBlock** /codebases/mace/mace/modules/blocks.py)
 

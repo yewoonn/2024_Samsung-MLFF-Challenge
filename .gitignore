@@ -1,14 +1,37 @@
 EVGF_MACE_UncertaintyENS/datasets/HfO/
-EVGF_MACE_UncertaintyENS/codebases
+EVGF_MACE_UncertaintyENS/codebases/*
+!EVGF_MACE_UncertaintyENS/codebases/mace/mace/modules
+!EVGF_MACE_UncertaintyENS/codebases/mace/
+!EVGF_MACE_UncertaintyENS/codebases/mace/mace/
+!EVGF_MACE_UncertaintyENS/codebases/mace/mace/modules
+
 
 EVGF_MACE_AllENS/datasets/HfO/
-EVGF_MACE_AllENS/codebases
+EVGF_MACE_AllENS/codebases/*
+!EVGF_MACE_AllENS/codebases/mace/mace/modules
+!EVGF_MACE_AllENS/codebases/mace/
+!EVGF_MACE_AllENS/codebases/mace/mace/
+!EVGF_MACE_AllENS/codebases/mace/mace/modules
+
+EVGF_MACE_AllENS/codebases/auto-FOX
+
+
 
 MACE_UncertaintyENS/datasets/HfO/
-MACE_UncertaintyENS/codebases
+MACE_UncertaintyENS/codebases/*
+!MACE_UncertaintyENS/codebases/mace/mace/modules
+!MACE_UncertaintyENS/codebases/mace/
+!MACE_UncertaintyENS/codebases/mace/mace/
+!MACE_UncertaintyENS/codebases/mace/mace/modules
+
 
 MACE_AllENS/datasets/HfO/
-MACE_AllENS/codebases
+MACE_AllENS/codebases/*
+!MACE_AllENS/codebases/mace/mace/modules
+!MACE_AllENS/codebases/mace/
+!MACE_AllENS/codebases/mace/mace/
+!MACE_AllENS/codebases/mace/mace/modules
+
 
 *.xyz
 *.lmdb

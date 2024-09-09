@@ -12,7 +12,6 @@ EVGF_MACE_AllENS/codebases/*
 !EVGF_MACE_AllENS/codebases/mace/
 !EVGF_MACE_AllENS/codebases/mace/mace/
 !EVGF_MACE_AllENS/codebases/mace/mace/modules
-
 EVGF_MACE_AllENS/codebases/auto-FOX
 
 
@@ -32,6 +31,13 @@ MACE_AllENS/codebases/*
 !MACE_AllENS/codebases/mace/mace/
 !MACE_AllENS/codebases/mace/mace/modules
 
+Masked_EVGF_MACE_AllENS/datasets/HfO/
+Masked_EVGF_MACE_AllENS/codebases/*
+!Masked_EVGF_MACE_AllENS/codebases/mace/mace/modules
+!Masked_EVGF_MACE_AllENS/codebases/mace/
+!Masked_EVGF_MACE_AllENS/codebases/mace/mace/
+!Masked_EVGF_MACE_AllENS/codebases/mace/mace/modules
 
 *.xyz
 *.lmdb
+

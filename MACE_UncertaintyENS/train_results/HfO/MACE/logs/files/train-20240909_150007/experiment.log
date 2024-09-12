@@ -1,0 +1,362 @@
+2024-09-09 15:00:09 (INFO): In the given configuration file or the configuration saved in the checkpoint, `normalize_labels` is set as `True` 
+2024-09-09 15:00:09 (INFO):   MACE does not need OCP normalizers, instead it uses own normalization strategy.
+2024-09-09 15:00:09 (INFO):   Hence `normalize_labels` will be changed as `False` to turn off the OCP normalizer operation.
+2024-09-09 15:00:09 (INFO):   You can control their own normalization strategy by changing `scaling` and `shifting` in the model configuration.
+2024-09-09 15:00:09 (INFO): Hidden irreps: 32x0e + 32x1o + 32x2e
+2024-09-09 15:00:09 (INFO): z_table : AtomicNumberTable: (8, 72)
+2024-09-09 15:00:09 (INFO): Loading train dataset (type: lmdb)
+2024-09-09 15:00:09 (INFO):  - datasets/HfO/atom_graph_rmax6.0_maxneighbor50/train.lmdb
+2024-09-09 15:00:09 (INFO): Loading validation dataset (type: lmdb)
+2024-09-09 15:00:09 (INFO):  - datasets/HfO/atom_graph_rmax6.0_maxneighbor50/valid.lmdb
+2024-09-09 15:00:09 (INFO): Loading test dataset (type: lmdb)
+2024-09-09 15:00:09 (INFO):  - datasets/HfO/atom_graph_rmax6.0_maxneighbor50/test.lmdb
+2024-09-09 15:00:09 (INFO): Load the computed results from datasets/HfO/atom_graph_rmax6.0_maxneighbor50/MACE_statistics.pt
+2024-09-09 15:00:09 (INFO): Atomic energies: [-11.458882089641774, -5.729441044820888]
+2024-09-09 15:00:09 (INFO): Average number of neighbors: 49.99997329711914
+2024-09-09 15:00:09 (INFO): Loading model: mace
+2024-09-09 15:00:10 (INFO): Loaded MACEWrap with 526960 parameters.
+2024-09-09 15:00:10 (INFO): 
+amp: false
+cmd:
+  checkpoint_dir: train_results/HfO/MACE/checkpoints/train-20240909_150007
+  identifier: train
+  logs_dir: train_results/HfO/MACE/logs/files/train-20240909_150007
+  print_every: 100
+  resume: false
+  seed: 0
+  show_eval_progressbar: false
+  timestamp_id: train-20240909_150007
+data_config_style: OCP
+dataset:
+  normalize_labels: false
+  normalize_labels_json: datasets/HfO/atom_graph_rmax6.0_maxneighbor50/normalize_stats.json
+  per_atom: true
+  src: datasets/HfO/atom_graph_rmax6.0_maxneighbor50/train.lmdb
+gpus: 1
+local_rank: 0
+logger: files
+model_attributes:
+  E0s: average
+  MLP_irreps: 16x0e
+  atomic_energies:
+  - !!python/object/apply:numpy.core.multiarray.scalar
+    - &id001 !!python/object/apply:numpy.dtype
+      args:
+      - f8
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - -1
+      - -1
+      - 0
+    - !!binary |
+      j3bfl/LqJsA=
+  - !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      kHbfl/LqFsA=
+  atomic_inter_scale: 1.9410662651062012
+  atomic_inter_shift: -5.043370095483279e-06
+  avg_num_neighbors: 49.99997329711914
+  chemical_symbols:
+  - O
+  - Hf
+  correlation: 3
+  cutoff: 6.0
+  gate: silu
+  hidden_irreps: 32x0e + 32x1o + 32x2e
+  max_ell: 3
+  max_neighbors: 50
+  num_cutoff_basis: 5
+  num_interactions: 2
+  num_radial_basis: 8
+  otf_graph: false
+  regress_forces: true
+  scaling: rms_forces_scaling
+  shifting: true
+  use_pbc: true
+model_name: mace
+noddp: false
+optim:
+  batch_size: 16
+  ema_decay: 0.99
+  energy_coefficient: 1
+  eval_batch_size: 16
+  force_coefficient: 1
+  loss_energy: energy_per_atom_mse
+  loss_force: force_per_dim_mse
+  lr_initial: 0.01
+  max_epochs: 65
+  num_test: 150
+  num_train: 1200
+  num_val: 150
+  num_workers: 2
+  optimizer: Adam
+  optimizer_params:
+    amsgrad: false
+  scheduler: LinearLR
+  weight_decay: 5.0e-07
+save_ckpt_every_epoch: 20
+slurm: {}
+task:
+  dataset: lmdb
+  description: Regressing to energies and forces for DFT trajectories of HfO
+  eval_on_free_atoms: false
+  metrics:
+  - energy_per_atom_mae
+  - energy_per_atom_mse
+  - forces_mae
+  - forces_mse
+  primary_metric: forces_mse
+  train_on_free_atoms: false
+test_dataset:
+  src: datasets/HfO/atom_graph_rmax6.0_maxneighbor50/test.lmdb
+val_dataset:
+  src: datasets/HfO/atom_graph_rmax6.0_maxneighbor50/valid.lmdb
+
+2024-09-09 15:03:26 (INFO): [train] epoch 1.0 (step 75): energy_per_atom_mae 0.10736 energy_per_atom_rmse 0.16853 forces_mae 0.58551 forces_rmse 0.89083 loss 0.82199 lr 9.85e-03
+2024-09-09 15:03:50 (INFO): [val] epoch 1.0: energy_per_atom_mae 0.18731 energy_per_atom_rmse 0.29637 forces_mae 1.00231 forces_rmse 1.45835 loss 2.19055
+2024-09-09 15:03:50 (INFO): 1 epoch elapsed time: 219.2 sec
+2024-09-09 15:04:54 (INFO): [train] epoch 1.3 (step 100): energy_per_atom_mae 0.07509 energy_per_atom_rmse 0.10082 forces_mae 0.26394 forces_rmse 0.36432 loss 0.14290 lr 9.80e-03
+2024-09-09 15:07:06 (INFO): [train] epoch 2.0 (step 150): energy_per_atom_mae 0.06365 energy_per_atom_rmse 0.08829 forces_mae 0.21991 forces_rmse 0.31267 loss 0.10556 lr 9.69e-03
+2024-09-09 15:07:29 (INFO): [val] epoch 2.0: energy_per_atom_mae 0.22246 energy_per_atom_rmse 0.24508 forces_mae 0.64032 forces_rmse 0.93628 loss 0.92617
+2024-09-09 15:07:29 (INFO): 2 epoch elapsed time: 219.5 sec
+2024-09-09 15:09:41 (INFO): [train] epoch 2.7 (step 200): energy_per_atom_mae 0.03415 energy_per_atom_rmse 0.04458 forces_mae 0.18172 forces_rmse 0.25684 loss 0.06795 lr 9.59e-03
+2024-09-09 15:10:45 (INFO): [train] epoch 3.0 (step 225): energy_per_atom_mae 0.04737 energy_per_atom_rmse 0.05793 forces_mae 0.17019 forces_rmse 0.23760 loss 0.05981 lr 9.54e-03
+2024-09-09 15:11:07 (INFO): [val] epoch 3.0: energy_per_atom_mae 0.19692 energy_per_atom_rmse 0.20131 forces_mae 0.38685 forces_rmse 0.56862 loss 0.36069
+2024-09-09 15:11:07 (INFO): 3 epoch elapsed time: 217.8 sec
+2024-09-09 15:14:11 (INFO): [train] epoch 4.0 (step 300): energy_per_atom_mae 0.03796 energy_per_atom_rmse 0.04775 forces_mae 0.15020 forces_rmse 0.21356 loss 0.04789 lr 9.39e-03
+2024-09-09 15:14:32 (INFO): [val] epoch 4.0: energy_per_atom_mae 0.11777 energy_per_atom_rmse 0.11999 forces_mae 0.23414 forces_rmse 0.34160 loss 0.13035
+2024-09-09 15:14:32 (INFO): 4 epoch elapsed time: 205.3 sec
+2024-09-09 15:17:37 (INFO): [train] epoch 5.0 (step 375): energy_per_atom_mae 0.03055 energy_per_atom_rmse 0.03852 forces_mae 0.12800 forces_rmse 0.17982 loss 0.03382 lr 9.23e-03
+2024-09-09 15:17:58 (INFO): [val] epoch 5.0: energy_per_atom_mae 0.06105 energy_per_atom_rmse 0.06254 forces_mae 0.16162 forces_rmse 0.23435 loss 0.05859
+2024-09-09 15:17:58 (INFO): 5 epoch elapsed time: 206.1 sec
+2024-09-09 15:19:00 (INFO): [train] epoch 5.3 (step 400): energy_per_atom_mae 0.04871 energy_per_atom_rmse 0.05791 forces_mae 0.11591 forces_rmse 0.16103 loss 0.02928 lr 9.18e-03
+2024-09-09 15:21:03 (INFO): [train] epoch 6.0 (step 450): energy_per_atom_mae 0.03361 energy_per_atom_rmse 0.04432 forces_mae 0.12425 forces_rmse 0.17502 loss 0.03260 lr 9.08e-03
+2024-09-09 15:21:24 (INFO): [val] epoch 6.0: energy_per_atom_mae 0.02872 energy_per_atom_rmse 0.03086 forces_mae 0.13202 forces_rmse 0.19342 loss 0.03813
+2024-09-09 15:21:24 (INFO): 6 epoch elapsed time: 206.1 sec
+2024-09-09 15:23:28 (INFO): [train] epoch 6.7 (step 500): energy_per_atom_mae 0.01964 energy_per_atom_rmse 0.02507 forces_mae 0.11394 forces_rmse 0.16045 loss 0.02637 lr 8.98e-03
+2024-09-09 15:24:31 (INFO): [train] epoch 7.0 (step 525): energy_per_atom_mae 0.01487 energy_per_atom_rmse 0.01906 forces_mae 0.10987 forces_rmse 0.15299 loss 0.02377 lr 8.93e-03
+2024-09-09 15:24:53 (INFO): [val] epoch 7.0: energy_per_atom_mae 0.01483 energy_per_atom_rmse 0.01714 forces_mae 0.11874 forces_rmse 0.17544 loss 0.03082
+2024-09-09 15:24:53 (INFO): 7 epoch elapsed time: 208.6 sec
+2024-09-09 15:28:11 (INFO): [train] epoch 8.0 (step 600): energy_per_atom_mae 0.04067 energy_per_atom_rmse 0.05739 forces_mae 0.12251 forces_rmse 0.17338 loss 0.03335 lr 8.77e-03
+2024-09-09 15:28:32 (INFO): [val] epoch 8.0: energy_per_atom_mae 0.00768 energy_per_atom_rmse 0.01037 forces_mae 0.11272 forces_rmse 0.16733 loss 0.02784
+2024-09-09 15:28:32 (INFO): 8 epoch elapsed time: 218.8 sec
+2024-09-09 15:31:45 (INFO): [train] epoch 9.0 (step 675): energy_per_atom_mae 0.02706 energy_per_atom_rmse 0.03748 forces_mae 0.10895 forces_rmse 0.15423 loss 0.02519 lr 8.62e-03
+2024-09-09 15:32:07 (INFO): [val] epoch 9.0: energy_per_atom_mae 0.00525 energy_per_atom_rmse 0.00804 forces_mae 0.10767 forces_rmse 0.16040 loss 0.02551
+2024-09-09 15:32:07 (INFO): 9 epoch elapsed time: 215.2 sec
+2024-09-09 15:33:13 (INFO): [train] epoch 9.3 (step 700): energy_per_atom_mae 0.02723 energy_per_atom_rmse 0.03184 forces_mae 0.09935 forces_rmse 0.13676 loss 0.01972 lr 8.57e-03
+2024-09-09 15:35:26 (INFO): [train] epoch 10.0 (step 750): energy_per_atom_mae 0.02050 energy_per_atom_rmse 0.02550 forces_mae 0.10033 forces_rmse 0.14131 loss 0.02062 lr 8.46e-03
+2024-09-09 15:35:49 (INFO): [val] epoch 10.0: energy_per_atom_mae 0.00428 energy_per_atom_rmse 0.00628 forces_mae 0.10358 forces_rmse 0.15439 loss 0.02361
+2024-09-09 15:35:49 (INFO): 10 epoch elapsed time: 221.7 sec
+2024-09-09 15:38:06 (INFO): [train] epoch 10.7 (step 800): energy_per_atom_mae 0.03101 energy_per_atom_rmse 0.03845 forces_mae 0.09945 forces_rmse 0.13915 loss 0.02084 lr 8.36e-03
+2024-09-09 15:39:13 (INFO): [train] epoch 11.0 (step 825): energy_per_atom_mae 0.02062 energy_per_atom_rmse 0.02505 forces_mae 0.10411 forces_rmse 0.14548 loss 0.02179 lr 8.31e-03
+2024-09-09 15:39:36 (INFO): [val] epoch 11.0: energy_per_atom_mae 0.00409 energy_per_atom_rmse 0.00589 forces_mae 0.10041 forces_rmse 0.14979 loss 0.02220
+2024-09-09 15:39:36 (INFO): 11 epoch elapsed time: 227.3 sec
+2024-09-09 15:42:58 (INFO): [train] epoch 12.0 (step 900): energy_per_atom_mae 0.02970 energy_per_atom_rmse 0.03821 forces_mae 0.10120 forces_rmse 0.14075 loss 0.02127 lr 8.16e-03
+2024-09-09 15:43:20 (INFO): [val] epoch 12.0: energy_per_atom_mae 0.00415 energy_per_atom_rmse 0.00614 forces_mae 0.09813 forces_rmse 0.14640 loss 0.02121
+2024-09-09 15:43:20 (INFO): 12 epoch elapsed time: 224.4 sec
+2024-09-09 15:46:46 (INFO): [train] epoch 13.0 (step 975): energy_per_atom_mae 0.02522 energy_per_atom_rmse 0.03283 forces_mae 0.09388 forces_rmse 0.13074 loss 0.01817 lr 8.00e-03
+2024-09-09 15:47:09 (INFO): [val] epoch 13.0: energy_per_atom_mae 0.00382 energy_per_atom_rmse 0.00549 forces_mae 0.09593 forces_rmse 0.14354 loss 0.02038
+2024-09-09 15:47:09 (INFO): 13 epoch elapsed time: 228.8 sec
+2024-09-09 15:48:20 (INFO): [train] epoch 13.3 (step 1000): energy_per_atom_mae 0.01835 energy_per_atom_rmse 0.02202 forces_mae 0.09365 forces_rmse 0.12946 loss 0.01724 lr 7.95e-03
+2024-09-09 15:50:32 (INFO): [train] epoch 14.0 (step 1050): energy_per_atom_mae 0.01818 energy_per_atom_rmse 0.02386 forces_mae 0.10100 forces_rmse 0.14074 loss 0.02038 lr 7.85e-03
+2024-09-09 15:50:54 (INFO): [val] epoch 14.0: energy_per_atom_mae 0.00369 energy_per_atom_rmse 0.00529 forces_mae 0.09402 forces_rmse 0.14083 loss 0.01961
+2024-09-09 15:50:54 (INFO): 14 epoch elapsed time: 225.2 sec
+2024-09-09 15:53:08 (INFO): [train] epoch 14.7 (step 1100): energy_per_atom_mae 0.02471 energy_per_atom_rmse 0.03401 forces_mae 0.10795 forces_rmse 0.15011 loss 0.02369 lr 7.75e-03
+2024-09-09 15:54:13 (INFO): [train] epoch 15.0 (step 1125): energy_per_atom_mae 0.01296 energy_per_atom_rmse 0.01827 forces_mae 0.09083 forces_rmse 0.12686 loss 0.01643 lr 7.69e-03
+2024-09-09 15:54:36 (INFO): [val] epoch 15.0: energy_per_atom_mae 0.00387 energy_per_atom_rmse 0.00555 forces_mae 0.09313 forces_rmse 0.13937 loss 0.01920
+2024-09-09 15:54:36 (INFO): 15 epoch elapsed time: 221.8 sec
+2024-09-09 15:57:56 (INFO): [train] epoch 16.0 (step 1200): energy_per_atom_mae 0.08770 energy_per_atom_rmse 0.15636 forces_mae 0.18493 forces_rmse 0.27017 loss 0.09744 lr 7.54e-03
+2024-09-09 15:58:19 (INFO): [val] epoch 16.0: energy_per_atom_mae 0.03718 energy_per_atom_rmse 0.04149 forces_mae 0.12710 forces_rmse 0.18349 loss 0.03519
+2024-09-09 15:58:19 (INFO): 16 epoch elapsed time: 223.3 sec
+2024-09-09 16:01:47 (INFO): [train] epoch 17.0 (step 1275): energy_per_atom_mae 0.00971 energy_per_atom_rmse 0.01324 forces_mae 0.10688 forces_rmse 0.15211 loss 0.02331 lr 7.39e-03
+2024-09-09 16:02:10 (INFO): [val] epoch 17.0: energy_per_atom_mae 0.02187 energy_per_atom_rmse 0.02451 forces_mae 0.11248 forces_rmse 0.16536 loss 0.02768
+2024-09-09 16:02:10 (INFO): 17 epoch elapsed time: 230.3 sec
+2024-09-09 16:03:18 (INFO): [train] epoch 17.3 (step 1300): energy_per_atom_mae 0.00992 energy_per_atom_rmse 0.01242 forces_mae 0.09582 forces_rmse 0.13733 loss 0.01901 lr 7.34e-03
+2024-09-09 16:05:35 (INFO): [train] epoch 18.0 (step 1350): energy_per_atom_mae 0.01014 energy_per_atom_rmse 0.01308 forces_mae 0.09307 forces_rmse 0.12960 loss 0.01697 lr 7.23e-03
+2024-09-09 16:05:58 (INFO): [val] epoch 18.0: energy_per_atom_mae 0.01202 energy_per_atom_rmse 0.01367 forces_mae 0.10158 forces_rmse 0.15179 loss 0.02295
+2024-09-09 16:05:58 (INFO): 18 epoch elapsed time: 228.4 sec
+2024-09-09 16:08:15 (INFO): [train] epoch 18.7 (step 1400): energy_per_atom_mae 0.00960 energy_per_atom_rmse 0.01243 forces_mae 0.08731 forces_rmse 0.12139 loss 0.01489 lr 7.13e-03
+2024-09-09 16:09:22 (INFO): [train] epoch 19.0 (step 1425): energy_per_atom_mae 0.00673 energy_per_atom_rmse 0.00896 forces_mae 0.08984 forces_rmse 0.12791 loss 0.01644 lr 7.08e-03
+2024-09-09 16:09:45 (INFO): [val] epoch 19.0: energy_per_atom_mae 0.00676 energy_per_atom_rmse 0.00824 forces_mae 0.09548 forces_rmse 0.14321 loss 0.02031
+2024-09-09 16:09:45 (INFO): 19 epoch elapsed time: 226.8 sec
+2024-09-09 16:13:10 (INFO): [train] epoch 20.0 (step 1500): energy_per_atom_mae 0.00740 energy_per_atom_rmse 0.00945 forces_mae 0.08465 forces_rmse 0.11853 loss 0.01414 lr 6.93e-03
+2024-09-09 16:13:34 (INFO): [val] epoch 20.0: energy_per_atom_mae 0.00412 energy_per_atom_rmse 0.00556 forces_mae 0.09202 forces_rmse 0.13803 loss 0.01883
+2024-09-09 16:13:34 (INFO): 20 epoch elapsed time: 228.7 sec
+2024-09-09 16:16:53 (INFO): [train] epoch 21.0 (step 1575): energy_per_atom_mae 0.00787 energy_per_atom_rmse 0.01040 forces_mae 0.08339 forces_rmse 0.11579 loss 0.01352 lr 6.77e-03
+2024-09-09 16:17:16 (INFO): [val] epoch 21.0: energy_per_atom_mae 0.00318 energy_per_atom_rmse 0.00435 forces_mae 0.08977 forces_rmse 0.13492 loss 0.01798
+2024-09-09 16:17:16 (INFO): 21 epoch elapsed time: 222.7 sec
+2024-09-09 16:18:27 (INFO): [train] epoch 21.3 (step 1600): energy_per_atom_mae 0.01319 energy_per_atom_rmse 0.01610 forces_mae 0.08304 forces_rmse 0.11528 loss 0.01355 lr 6.72e-03
+2024-09-09 16:20:41 (INFO): [train] epoch 22.0 (step 1650): energy_per_atom_mae 0.01674 energy_per_atom_rmse 0.02177 forces_mae 0.08270 forces_rmse 0.11412 loss 0.01350 lr 6.62e-03
+2024-09-09 16:21:04 (INFO): [val] epoch 22.0: energy_per_atom_mae 0.00277 energy_per_atom_rmse 0.00381 forces_mae 0.08819 forces_rmse 0.13263 loss 0.01736
+2024-09-09 16:21:04 (INFO): 22 epoch elapsed time: 228.0 sec
+2024-09-09 16:23:19 (INFO): [train] epoch 22.7 (step 1700): energy_per_atom_mae 0.01418 energy_per_atom_rmse 0.01716 forces_mae 0.08048 forces_rmse 0.11125 loss 0.01267 lr 6.51e-03
+2024-09-09 16:24:27 (INFO): [train] epoch 23.0 (step 1725): energy_per_atom_mae 0.01296 energy_per_atom_rmse 0.01572 forces_mae 0.07947 forces_rmse 0.10934 loss 0.01220 lr 6.46e-03
+2024-09-09 16:24:50 (INFO): [val] epoch 23.0: energy_per_atom_mae 0.00266 energy_per_atom_rmse 0.00354 forces_mae 0.08695 forces_rmse 0.13099 loss 0.01693
+2024-09-09 16:24:50 (INFO): 23 epoch elapsed time: 225.8 sec
+2024-09-09 16:28:09 (INFO): [train] epoch 24.0 (step 1800): energy_per_atom_mae 0.00663 energy_per_atom_rmse 0.00876 forces_mae 0.07826 forces_rmse 0.10793 loss 0.01172 lr 6.31e-03
+2024-09-09 16:28:32 (INFO): [val] epoch 24.0: energy_per_atom_mae 0.00259 energy_per_atom_rmse 0.00342 forces_mae 0.08595 forces_rmse 0.12968 loss 0.01659
+2024-09-09 16:28:32 (INFO): 24 epoch elapsed time: 222.0 sec
+2024-09-09 16:31:52 (INFO): [train] epoch 25.0 (step 1875): energy_per_atom_mae 0.00670 energy_per_atom_rmse 0.00899 forces_mae 0.07768 forces_rmse 0.10669 loss 0.01146 lr 6.16e-03
+2024-09-09 16:32:15 (INFO): [val] epoch 25.0: energy_per_atom_mae 0.00249 energy_per_atom_rmse 0.00331 forces_mae 0.08510 forces_rmse 0.12856 loss 0.01630
+2024-09-09 16:32:15 (INFO): 25 epoch elapsed time: 223.3 sec
+2024-09-09 16:33:21 (INFO): [train] epoch 25.3 (step 1900): energy_per_atom_mae 0.00680 energy_per_atom_rmse 0.00855 forces_mae 0.07410 forces_rmse 0.10103 loss 0.01028 lr 6.10e-03
+2024-09-09 16:35:35 (INFO): [train] epoch 26.0 (step 1950): energy_per_atom_mae 0.01314 energy_per_atom_rmse 0.01682 forces_mae 0.07686 forces_rmse 0.10586 loss 0.01149 lr 6.00e-03
+2024-09-09 16:35:58 (INFO): [val] epoch 26.0: energy_per_atom_mae 0.00241 energy_per_atom_rmse 0.00324 forces_mae 0.08434 forces_rmse 0.12735 loss 0.01599
+2024-09-09 16:35:58 (INFO): 26 epoch elapsed time: 222.6 sec
+2024-09-09 16:38:17 (INFO): [train] epoch 26.7 (step 2000): energy_per_atom_mae 0.00812 energy_per_atom_rmse 0.01042 forces_mae 0.07664 forces_rmse 0.10527 loss 0.01119 lr 5.90e-03
+2024-09-09 16:39:21 (INFO): [train] epoch 27.0 (step 2025): energy_per_atom_mae 0.00902 energy_per_atom_rmse 0.01123 forces_mae 0.07605 forces_rmse 0.10360 loss 0.01086 lr 5.85e-03
+2024-09-09 16:39:44 (INFO): [val] epoch 27.0: energy_per_atom_mae 0.00239 energy_per_atom_rmse 0.00317 forces_mae 0.08362 forces_rmse 0.12651 loss 0.01578
+2024-09-09 16:39:44 (INFO): 27 epoch elapsed time: 226.3 sec
+2024-09-09 16:43:05 (INFO): [train] epoch 28.0 (step 2100): energy_per_atom_mae 0.00649 energy_per_atom_rmse 0.00845 forces_mae 0.07494 forces_rmse 0.10273 loss 0.01062 lr 5.69e-03
+2024-09-09 16:43:28 (INFO): [val] epoch 28.0: energy_per_atom_mae 0.00241 energy_per_atom_rmse 0.00318 forces_mae 0.08295 forces_rmse 0.12565 loss 0.01556
+2024-09-09 16:43:28 (INFO): 28 epoch elapsed time: 223.7 sec
+2024-09-09 16:46:53 (INFO): [train] epoch 29.0 (step 2175): energy_per_atom_mae 0.00955 energy_per_atom_rmse 0.01239 forces_mae 0.07891 forces_rmse 0.10768 loss 0.01175 lr 5.54e-03
+2024-09-09 16:47:16 (INFO): [val] epoch 29.0: energy_per_atom_mae 0.00230 energy_per_atom_rmse 0.00314 forces_mae 0.08250 forces_rmse 0.12507 loss 0.01541
+2024-09-09 16:47:16 (INFO): 29 epoch elapsed time: 228.0 sec
+2024-09-09 16:48:21 (INFO): [train] epoch 29.3 (step 2200): energy_per_atom_mae 0.01741 energy_per_atom_rmse 0.02033 forces_mae 0.07442 forces_rmse 0.10227 loss 0.01087 lr 5.49e-03
+2024-09-09 16:50:40 (INFO): [train] epoch 30.0 (step 2250): energy_per_atom_mae 0.01153 energy_per_atom_rmse 0.01541 forces_mae 0.07358 forces_rmse 0.10067 loss 0.01037 lr 5.39e-03
+2024-09-09 16:51:03 (INFO): [val] epoch 30.0: energy_per_atom_mae 0.00225 energy_per_atom_rmse 0.00311 forces_mae 0.08194 forces_rmse 0.12423 loss 0.01521
+2024-09-09 16:51:03 (INFO): 30 epoch elapsed time: 226.8 sec
+2024-09-09 16:53:24 (INFO): [train] epoch 30.7 (step 2300): energy_per_atom_mae 0.01463 energy_per_atom_rmse 0.01874 forces_mae 0.08178 forces_rmse 0.11378 loss 0.01330 lr 5.28e-03
+2024-09-09 16:54:34 (INFO): [train] epoch 31.0 (step 2325): energy_per_atom_mae 0.00770 energy_per_atom_rmse 0.00957 forces_mae 0.07617 forces_rmse 0.10334 loss 0.01077 lr 5.23e-03
+2024-09-09 16:54:57 (INFO): [val] epoch 31.0: energy_per_atom_mae 0.00230 energy_per_atom_rmse 0.00322 forces_mae 0.08171 forces_rmse 0.12414 loss 0.01519
+2024-09-09 16:54:57 (INFO): 31 epoch elapsed time: 234.5 sec
+2024-09-09 16:58:21 (INFO): [train] epoch 32.0 (step 2400): energy_per_atom_mae 0.00961 energy_per_atom_rmse 0.01195 forces_mae 0.07244 forces_rmse 0.09990 loss 0.01012 lr 5.08e-03
+2024-09-09 16:58:44 (INFO): [val] epoch 32.0: energy_per_atom_mae 0.00228 energy_per_atom_rmse 0.00313 forces_mae 0.08138 forces_rmse 0.12436 loss 0.01523
+2024-09-09 16:58:44 (INFO): 32 epoch elapsed time: 227.0 sec
+2024-09-09 17:02:12 (INFO): [train] epoch 33.0 (step 2475): energy_per_atom_mae 0.01381 energy_per_atom_rmse 0.01799 forces_mae 0.07306 forces_rmse 0.10067 loss 0.01046 lr 4.93e-03
+2024-09-09 17:02:35 (INFO): [val] epoch 33.0: energy_per_atom_mae 0.00222 energy_per_atom_rmse 0.00302 forces_mae 0.08092 forces_rmse 0.12354 loss 0.01503
+2024-09-09 17:02:36 (INFO): 33 epoch elapsed time: 231.3 sec
+2024-09-09 17:03:45 (INFO): [train] epoch 33.3 (step 2500): energy_per_atom_mae 0.01362 energy_per_atom_rmse 0.01601 forces_mae 0.07268 forces_rmse 0.09968 loss 0.01019 lr 4.87e-03
+2024-09-09 17:05:59 (INFO): [train] epoch 34.0 (step 2550): energy_per_atom_mae 0.01912 energy_per_atom_rmse 0.02282 forces_mae 0.07270 forces_rmse 0.09969 loss 0.01046 lr 4.77e-03
+2024-09-09 17:06:22 (INFO): [val] epoch 34.0: energy_per_atom_mae 0.00215 energy_per_atom_rmse 0.00303 forces_mae 0.08051 forces_rmse 0.12281 loss 0.01486
+2024-09-09 17:06:22 (INFO): 34 epoch elapsed time: 226.9 sec
+2024-09-09 17:08:41 (INFO): [train] epoch 34.7 (step 2600): energy_per_atom_mae 0.00639 energy_per_atom_rmse 0.00856 forces_mae 0.07001 forces_rmse 0.09561 loss 0.00921 lr 4.67e-03
+2024-09-09 17:09:48 (INFO): [train] epoch 35.0 (step 2625): energy_per_atom_mae 0.01525 energy_per_atom_rmse 0.01883 forces_mae 0.07063 forces_rmse 0.09789 loss 0.00994 lr 4.62e-03
+2024-09-09 17:10:11 (INFO): [val] epoch 35.0: energy_per_atom_mae 0.00212 energy_per_atom_rmse 0.00293 forces_mae 0.08010 forces_rmse 0.12227 loss 0.01472
+2024-09-09 17:10:11 (INFO): 35 epoch elapsed time: 228.9 sec
+2024-09-09 17:13:31 (INFO): [train] epoch 36.0 (step 2700): energy_per_atom_mae 0.01027 energy_per_atom_rmse 0.01273 forces_mae 0.07094 forces_rmse 0.09665 loss 0.00950 lr 4.46e-03
+2024-09-09 17:13:55 (INFO): [val] epoch 36.0: energy_per_atom_mae 0.00206 energy_per_atom_rmse 0.00284 forces_mae 0.07971 forces_rmse 0.12195 loss 0.01464
+2024-09-09 17:13:55 (INFO): 36 epoch elapsed time: 223.4 sec
+2024-09-09 17:17:19 (INFO): [train] epoch 37.0 (step 2775): energy_per_atom_mae 0.01070 energy_per_atom_rmse 0.01369 forces_mae 0.07055 forces_rmse 0.09563 loss 0.00933 lr 4.31e-03
+2024-09-09 17:17:43 (INFO): [val] epoch 37.0: energy_per_atom_mae 0.00203 energy_per_atom_rmse 0.00279 forces_mae 0.07943 forces_rmse 0.12175 loss 0.01459
+2024-09-09 17:17:43 (INFO): 37 epoch elapsed time: 228.2 sec
+2024-09-09 17:18:50 (INFO): [train] epoch 37.3 (step 2800): energy_per_atom_mae 0.00905 energy_per_atom_rmse 0.01131 forces_mae 0.06872 forces_rmse 0.09278 loss 0.00874 lr 4.26e-03
+2024-09-09 17:21:03 (INFO): [train] epoch 38.0 (step 2850): energy_per_atom_mae 0.01250 energy_per_atom_rmse 0.01525 forces_mae 0.07083 forces_rmse 0.09605 loss 0.00946 lr 4.16e-03
+2024-09-09 17:21:26 (INFO): [val] epoch 38.0: energy_per_atom_mae 0.00205 energy_per_atom_rmse 0.00277 forces_mae 0.07920 forces_rmse 0.12139 loss 0.01450
+2024-09-09 17:21:26 (INFO): 38 epoch elapsed time: 223.6 sec
+2024-09-09 17:23:45 (INFO): [train] epoch 38.7 (step 2900): energy_per_atom_mae 0.01628 energy_per_atom_rmse 0.01944 forces_mae 0.06908 forces_rmse 0.09300 loss 0.00903 lr 4.05e-03
+2024-09-09 17:24:50 (INFO): [train] epoch 39.0 (step 2925): energy_per_atom_mae 0.00899 energy_per_atom_rmse 0.01120 forces_mae 0.06864 forces_rmse 0.09282 loss 0.00874 lr 4.00e-03
+2024-09-09 17:25:13 (INFO): [val] epoch 39.0: energy_per_atom_mae 0.00214 energy_per_atom_rmse 0.00286 forces_mae 0.07900 forces_rmse 0.12132 loss 0.01448
+2024-09-09 17:25:13 (INFO): 39 epoch elapsed time: 226.7 sec
+2024-09-09 17:28:38 (INFO): [train] epoch 40.0 (step 3000): energy_per_atom_mae 0.00863 energy_per_atom_rmse 0.01123 forces_mae 0.06778 forces_rmse 0.09150 loss 0.00850 lr 3.85e-03
+2024-09-09 17:29:01 (INFO): [val] epoch 40.0: energy_per_atom_mae 0.00202 energy_per_atom_rmse 0.00271 forces_mae 0.07875 forces_rmse 0.12109 loss 0.01442
+2024-09-09 17:29:01 (INFO): 40 epoch elapsed time: 227.5 sec
+2024-09-09 17:32:26 (INFO): [train] epoch 41.0 (step 3075): energy_per_atom_mae 0.00673 energy_per_atom_rmse 0.00877 forces_mae 0.06752 forces_rmse 0.09091 loss 0.00834 lr 3.69e-03
+2024-09-09 17:32:49 (INFO): [val] epoch 41.0: energy_per_atom_mae 0.00205 energy_per_atom_rmse 0.00275 forces_mae 0.07855 forces_rmse 0.12105 loss 0.01441
+2024-09-09 17:32:49 (INFO): 41 epoch elapsed time: 228.5 sec
+2024-09-09 17:33:54 (INFO): [train] epoch 41.3 (step 3100): energy_per_atom_mae 0.00709 energy_per_atom_rmse 0.00887 forces_mae 0.06660 forces_rmse 0.08961 loss 0.00811 lr 3.64e-03
+2024-09-09 17:36:06 (INFO): [train] epoch 42.0 (step 3150): energy_per_atom_mae 0.00588 energy_per_atom_rmse 0.00769 forces_mae 0.06580 forces_rmse 0.08875 loss 0.00794 lr 3.54e-03
+2024-09-09 17:36:29 (INFO): [val] epoch 42.0: energy_per_atom_mae 0.00191 energy_per_atom_rmse 0.00260 forces_mae 0.07832 forces_rmse 0.12092 loss 0.01437
+2024-09-09 17:36:30 (INFO): 42 epoch elapsed time: 220.3 sec
+2024-09-09 17:38:40 (INFO): [train] epoch 42.7 (step 3200): energy_per_atom_mae 0.00583 energy_per_atom_rmse 0.00792 forces_mae 0.06560 forces_rmse 0.08838 loss 0.00787 lr 3.44e-03
+2024-09-09 17:39:45 (INFO): [train] epoch 43.0 (step 3225): energy_per_atom_mae 0.01050 energy_per_atom_rmse 0.01218 forces_mae 0.06544 forces_rmse 0.08784 loss 0.00786 lr 3.39e-03
+2024-09-09 17:40:09 (INFO): [val] epoch 43.0: energy_per_atom_mae 0.00187 energy_per_atom_rmse 0.00258 forces_mae 0.07812 forces_rmse 0.12090 loss 0.01436
+2024-09-09 17:40:09 (INFO): 43 epoch elapsed time: 219.7 sec
+2024-09-09 17:43:33 (INFO): [train] epoch 44.0 (step 3300): energy_per_atom_mae 0.00564 energy_per_atom_rmse 0.00727 forces_mae 0.06503 forces_rmse 0.08751 loss 0.00771 lr 3.23e-03
+2024-09-09 17:43:56 (INFO): [val] epoch 44.0: energy_per_atom_mae 0.00184 energy_per_atom_rmse 0.00255 forces_mae 0.07794 forces_rmse 0.12079 loss 0.01434
+2024-09-09 17:43:56 (INFO): 44 epoch elapsed time: 226.6 sec
+2024-09-09 17:47:19 (INFO): [train] epoch 45.0 (step 3375): energy_per_atom_mae 0.00925 energy_per_atom_rmse 0.01122 forces_mae 0.06523 forces_rmse 0.08765 loss 0.00781 lr 3.08e-03
+2024-09-09 17:47:42 (INFO): [val] epoch 45.0: energy_per_atom_mae 0.00187 energy_per_atom_rmse 0.00258 forces_mae 0.07778 forces_rmse 0.12080 loss 0.01433
+2024-09-09 17:47:42 (INFO): 45 epoch elapsed time: 226.1 sec
+2024-09-09 17:48:49 (INFO): [train] epoch 45.3 (step 3400): energy_per_atom_mae 0.00685 energy_per_atom_rmse 0.00842 forces_mae 0.06462 forces_rmse 0.08663 loss 0.00758 lr 3.03e-03
+2024-09-09 17:51:06 (INFO): [train] epoch 46.0 (step 3450): energy_per_atom_mae 0.00657 energy_per_atom_rmse 0.00797 forces_mae 0.06433 forces_rmse 0.08652 loss 0.00755 lr 2.93e-03
+2024-09-09 17:51:29 (INFO): [val] epoch 46.0: energy_per_atom_mae 0.00181 energy_per_atom_rmse 0.00251 forces_mae 0.07761 forces_rmse 0.12089 loss 0.01435
+2024-09-09 17:51:29 (INFO): 46 epoch elapsed time: 226.8 sec
+2024-09-09 17:53:43 (INFO): [train] epoch 46.7 (step 3500): energy_per_atom_mae 0.00594 energy_per_atom_rmse 0.00764 forces_mae 0.06419 forces_rmse 0.08616 loss 0.00748 lr 2.82e-03
+2024-09-09 17:54:48 (INFO): [train] epoch 47.0 (step 3525): energy_per_atom_mae 0.01256 energy_per_atom_rmse 0.01457 forces_mae 0.06411 forces_rmse 0.08599 loss 0.00761 lr 2.77e-03
+2024-09-09 17:55:11 (INFO): [val] epoch 47.0: energy_per_atom_mae 0.00179 energy_per_atom_rmse 0.00250 forces_mae 0.07740 forces_rmse 0.12060 loss 0.01428
+2024-09-09 17:55:11 (INFO): 47 epoch elapsed time: 222.4 sec
+2024-09-09 17:58:32 (INFO): [train] epoch 48.0 (step 3600): energy_per_atom_mae 0.00732 energy_per_atom_rmse 0.00924 forces_mae 0.06372 forces_rmse 0.08553 loss 0.00740 lr 2.62e-03
+2024-09-09 17:58:55 (INFO): [val] epoch 48.0: energy_per_atom_mae 0.00173 energy_per_atom_rmse 0.00243 forces_mae 0.07725 forces_rmse 0.12065 loss 0.01429
+2024-09-09 17:58:55 (INFO): 48 epoch elapsed time: 224.2 sec
+2024-09-09 18:02:27 (INFO): [train] epoch 49.0 (step 3675): energy_per_atom_mae 0.00586 energy_per_atom_rmse 0.00732 forces_mae 0.06307 forces_rmse 0.08459 loss 0.00721 lr 2.46e-03
+2024-09-09 18:02:50 (INFO): [val] epoch 49.0: energy_per_atom_mae 0.00173 energy_per_atom_rmse 0.00241 forces_mae 0.07711 forces_rmse 0.12050 loss 0.01425
+2024-09-09 18:02:50 (INFO): 49 epoch elapsed time: 234.5 sec
+2024-09-09 18:03:57 (INFO): [train] epoch 49.3 (step 3700): energy_per_atom_mae 0.00759 energy_per_atom_rmse 0.00890 forces_mae 0.06455 forces_rmse 0.08640 loss 0.00754 lr 2.41e-03
+2024-09-09 18:06:16 (INFO): [train] epoch 50.0 (step 3750): energy_per_atom_mae 0.00481 energy_per_atom_rmse 0.00627 forces_mae 0.06261 forces_rmse 0.08379 loss 0.00706 lr 2.31e-03
+2024-09-09 18:06:39 (INFO): [val] epoch 50.0: energy_per_atom_mae 0.00172 energy_per_atom_rmse 0.00240 forces_mae 0.07700 forces_rmse 0.12050 loss 0.01425
+2024-09-09 18:06:39 (INFO): 50 epoch elapsed time: 229.2 sec
+2024-09-09 18:08:58 (INFO): [train] epoch 50.7 (step 3800): energy_per_atom_mae 0.00306 energy_per_atom_rmse 0.00402 forces_mae 0.06215 forces_rmse 0.08290 loss 0.00689 lr 2.21e-03
+2024-09-09 18:10:07 (INFO): [train] epoch 51.0 (step 3825): energy_per_atom_mae 0.00797 energy_per_atom_rmse 0.00980 forces_mae 0.06342 forces_rmse 0.08531 loss 0.00737 lr 2.16e-03
+2024-09-09 18:10:30 (INFO): [val] epoch 51.0: energy_per_atom_mae 0.00171 energy_per_atom_rmse 0.00238 forces_mae 0.07685 forces_rmse 0.12046 loss 0.01424
+2024-09-09 18:10:30 (INFO): 51 epoch elapsed time: 231.3 sec
+2024-09-09 18:13:53 (INFO): [train] epoch 52.0 (step 3900): energy_per_atom_mae 0.00639 energy_per_atom_rmse 0.00792 forces_mae 0.06204 forces_rmse 0.08300 loss 0.00695 lr 2.00e-03
+2024-09-09 18:14:16 (INFO): [val] epoch 52.0: energy_per_atom_mae 0.00169 energy_per_atom_rmse 0.00237 forces_mae 0.07674 forces_rmse 0.12048 loss 0.01424
+2024-09-09 18:14:16 (INFO): 52 epoch elapsed time: 225.7 sec
+2024-09-09 18:17:38 (INFO): [train] epoch 53.0 (step 3975): energy_per_atom_mae 0.00454 energy_per_atom_rmse 0.00577 forces_mae 0.06139 forces_rmse 0.08207 loss 0.00677 lr 1.85e-03
+2024-09-09 18:18:01 (INFO): [val] epoch 53.0: energy_per_atom_mae 0.00170 energy_per_atom_rmse 0.00236 forces_mae 0.07664 forces_rmse 0.12051 loss 0.01424
+2024-09-09 18:18:01 (INFO): 53 epoch elapsed time: 224.5 sec
+2024-09-09 18:19:06 (INFO): [train] epoch 53.3 (step 4000): energy_per_atom_mae 0.00367 energy_per_atom_rmse 0.00461 forces_mae 0.06095 forces_rmse 0.08128 loss 0.00663 lr 1.80e-03
+2024-09-09 18:21:23 (INFO): [train] epoch 54.0 (step 4050): energy_per_atom_mae 0.00422 energy_per_atom_rmse 0.00536 forces_mae 0.06106 forces_rmse 0.08165 loss 0.00669 lr 1.69e-03
+2024-09-09 18:21:46 (INFO): [val] epoch 54.0: energy_per_atom_mae 0.00168 energy_per_atom_rmse 0.00235 forces_mae 0.07655 forces_rmse 0.12053 loss 0.01425
+2024-09-09 18:21:46 (INFO): 54 epoch elapsed time: 225.5 sec
+2024-09-09 18:23:58 (INFO): [train] epoch 54.7 (step 4100): energy_per_atom_mae 0.00456 energy_per_atom_rmse 0.00577 forces_mae 0.06063 forces_rmse 0.08092 loss 0.00658 lr 1.59e-03
+2024-09-09 18:25:08 (INFO): [train] epoch 55.0 (step 4125): energy_per_atom_mae 0.00483 energy_per_atom_rmse 0.00582 forces_mae 0.06144 forces_rmse 0.08220 loss 0.00679 lr 1.54e-03
+2024-09-09 18:25:31 (INFO): [val] epoch 55.0: energy_per_atom_mae 0.00168 energy_per_atom_rmse 0.00234 forces_mae 0.07647 forces_rmse 0.12061 loss 0.01426
+2024-09-09 18:25:31 (INFO): 55 epoch elapsed time: 224.9 sec
+2024-09-09 18:28:54 (INFO): [train] epoch 56.0 (step 4200): energy_per_atom_mae 0.00380 energy_per_atom_rmse 0.00482 forces_mae 0.06057 forces_rmse 0.08081 loss 0.00655 lr 1.39e-03
+2024-09-09 18:29:16 (INFO): [val] epoch 56.0: energy_per_atom_mae 0.00168 energy_per_atom_rmse 0.00233 forces_mae 0.07639 forces_rmse 0.12046 loss 0.01423
+2024-09-09 18:29:17 (INFO): 56 epoch elapsed time: 225.5 sec
+2024-09-09 18:32:34 (INFO): [train] epoch 57.0 (step 4275): energy_per_atom_mae 0.00424 energy_per_atom_rmse 0.00547 forces_mae 0.06020 forces_rmse 0.08032 loss 0.00648 lr 1.23e-03
+2024-09-09 18:32:57 (INFO): [val] epoch 57.0: energy_per_atom_mae 0.00164 energy_per_atom_rmse 0.00229 forces_mae 0.07631 forces_rmse 0.12051 loss 0.01424
+2024-09-09 18:32:57 (INFO): 57 epoch elapsed time: 220.0 sec
+2024-09-09 18:34:01 (INFO): [train] epoch 57.3 (step 4300): energy_per_atom_mae 0.00246 energy_per_atom_rmse 0.00326 forces_mae 0.06004 forces_rmse 0.07976 loss 0.00637 lr 1.18e-03
+2024-09-09 18:36:13 (INFO): [train] epoch 58.0 (step 4350): energy_per_atom_mae 0.00319 energy_per_atom_rmse 0.00415 forces_mae 0.05961 forces_rmse 0.07967 loss 0.00636 lr 1.08e-03
+2024-09-09 18:36:35 (INFO): [val] epoch 58.0: energy_per_atom_mae 0.00164 energy_per_atom_rmse 0.00230 forces_mae 0.07620 forces_rmse 0.12048 loss 0.01423
+2024-09-09 18:36:35 (INFO): 58 epoch elapsed time: 218.5 sec
+2024-09-09 18:38:49 (INFO): [train] epoch 58.7 (step 4400): energy_per_atom_mae 0.00399 energy_per_atom_rmse 0.00513 forces_mae 0.05979 forces_rmse 0.07992 loss 0.00641 lr 9.76e-04
+2024-09-09 18:39:57 (INFO): [train] epoch 59.0 (step 4425): energy_per_atom_mae 0.00231 energy_per_atom_rmse 0.00297 forces_mae 0.05982 forces_rmse 0.07916 loss 0.00628 lr 9.25e-04
+2024-09-09 18:40:19 (INFO): [val] epoch 59.0: energy_per_atom_mae 0.00162 energy_per_atom_rmse 0.00226 forces_mae 0.07619 forces_rmse 0.12052 loss 0.01424
+2024-09-09 18:40:20 (INFO): 59 epoch elapsed time: 224.5 sec
+2024-09-09 18:43:33 (INFO): [train] epoch 60.0 (step 4500): energy_per_atom_mae 0.00344 energy_per_atom_rmse 0.00434 forces_mae 0.05933 forces_rmse 0.07906 loss 0.00627 lr 7.71e-04
+2024-09-09 18:43:56 (INFO): [val] epoch 60.0: energy_per_atom_mae 0.00162 energy_per_atom_rmse 0.00226 forces_mae 0.07615 forces_rmse 0.12060 loss 0.01426
+2024-09-09 18:43:56 (INFO): 60 epoch elapsed time: 216.1 sec
+2024-09-09 18:47:21 (INFO): [train] epoch 61.0 (step 4575): energy_per_atom_mae 0.00317 energy_per_atom_rmse 0.00411 forces_mae 0.05911 forces_rmse 0.07871 loss 0.00621 lr 6.17e-04
+2024-09-09 18:47:43 (INFO): [val] epoch 61.0: energy_per_atom_mae 0.00162 energy_per_atom_rmse 0.00226 forces_mae 0.07610 forces_rmse 0.12063 loss 0.01426
+2024-09-09 18:47:43 (INFO): 61 epoch elapsed time: 227.3 sec
+2024-09-09 18:48:49 (INFO): [train] epoch 61.3 (step 4600): energy_per_atom_mae 0.00212 energy_per_atom_rmse 0.00303 forces_mae 0.05831 forces_rmse 0.07736 loss 0.00599 lr 5.66e-04
+2024-09-09 18:50:58 (INFO): [train] epoch 62.0 (step 4650): energy_per_atom_mae 0.00222 energy_per_atom_rmse 0.00288 forces_mae 0.05914 forces_rmse 0.07890 loss 0.00623 lr 4.64e-04
+2024-09-09 18:51:20 (INFO): [val] epoch 62.0: energy_per_atom_mae 0.00161 energy_per_atom_rmse 0.00226 forces_mae 0.07606 forces_rmse 0.12063 loss 0.01426
+2024-09-09 18:51:20 (INFO): 62 epoch elapsed time: 217.6 sec
+2024-09-09 18:53:38 (INFO): [train] epoch 62.7 (step 4700): energy_per_atom_mae 0.00221 energy_per_atom_rmse 0.00282 forces_mae 0.05838 forces_rmse 0.07760 loss 0.00603 lr 3.61e-04
+2024-09-09 18:54:40 (INFO): [train] epoch 63.0 (step 4725): energy_per_atom_mae 0.00210 energy_per_atom_rmse 0.00309 forces_mae 0.05931 forces_rmse 0.07920 loss 0.00628 lr 3.10e-04
+2024-09-09 18:55:02 (INFO): [val] epoch 63.0: energy_per_atom_mae 0.00161 energy_per_atom_rmse 0.00225 forces_mae 0.07603 forces_rmse 0.12067 loss 0.01427
+2024-09-09 18:55:02 (INFO): 63 epoch elapsed time: 221.7 sec
+2024-09-09 18:58:14 (INFO): [train] epoch 64.0 (step 4800): energy_per_atom_mae 0.00195 energy_per_atom_rmse 0.00265 forces_mae 0.05848 forces_rmse 0.07783 loss 0.00606 lr 1.56e-04
+2024-09-09 18:58:36 (INFO): [val] epoch 64.0: energy_per_atom_mae 0.00161 energy_per_atom_rmse 0.00225 forces_mae 0.07601 forces_rmse 0.12066 loss 0.01427
+2024-09-09 18:58:36 (INFO): 64 epoch elapsed time: 214.0 sec
+2024-09-09 19:01:44 (INFO): [train] epoch 65.0 (step 4875): energy_per_atom_mae 0.00170 energy_per_atom_rmse 0.00237 forces_mae 0.05831 forces_rmse 0.07759 loss 0.00603 lr 2.05e-06
+2024-09-09 19:02:06 (INFO): [val] epoch 65.0: energy_per_atom_mae 0.00161 energy_per_atom_rmse 0.00226 forces_mae 0.07600 forces_rmse 0.12068 loss 0.01427
+2024-09-09 19:02:06 (INFO): 65 epoch elapsed time: 210.1 sec
+2024-09-09 19:02:06 (INFO): train() elapsed time: 14515.9 sec
+2024-09-09 19:02:06 (INFO): Performing the final evaluation (last model)
+2024-09-09 19:02:06 (INFO): Evaluating on train ...
+2024-09-09 19:04:59 (INFO): Evaluating on val ...
+2024-09-09 19:05:21 (INFO): Evaluating on test ...
+2024-09-09 19:05:42 (INFO): 
++---------+---------------------+----------------------+------------+-------------+
+| dataset | energy_per_atom_mae | energy_per_atom_rmse | forces_mae | forces_rmse |
++---------+---------------------+----------------------+------------+-------------+
+|  train  |         1.6         |         2.3          |    58.2    |     77.5    |
+|   val   |         1.6         |         2.3          |    76.0    |    120.7    |
+|   test  |         2.1         |         6.2          |    78.4    |    192.3    |
++---------+---------------------+----------------------+------------+-------------+
+2024-09-09 19:05:42 (INFO): Total time taken: 14734.9 sec (4.1 h)

@@ -1,0 +1,216 @@
+amp: false
+cmd:
+  checkpoint_dir: train_results/HfO/MACE/checkpoints/train-20240909_150007
+  identifier: train
+  logs_dir: train_results/HfO/MACE/logs/files/train-20240909_150007
+  print_every: 100
+  resume: false
+  seed: 0
+  show_eval_progressbar: false
+  timestamp_id: train-20240909_150007
+data_config_style: OCP
+dataset:
+  normalize_labels: false
+  normalize_labels_json: datasets/HfO/atom_graph_rmax6.0_maxneighbor50/normalize_stats.json
+  per_atom: true
+  src: datasets/HfO/atom_graph_rmax6.0_maxneighbor50/train.lmdb
+gpus: 1
+local_rank: 0
+logger: files
+model_attributes:
+  E0s: average
+  MLP_irreps: 16x0e
+  atomic_energies:
+  - !!python/object/apply:numpy.core.multiarray.scalar
+    - &id001 !!python/object/apply:numpy.dtype
+      args:
+      - f8
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - -1
+      - -1
+      - 0
+    - !!binary |
+      j3bfl/LqJsA=
+  - !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      kHbfl/LqFsA=
+  atomic_inter_scale: 1.9410662651062012
+  atomic_inter_shift: -5.043370095483279e-06
+  avg_num_neighbors: 49.99997329711914
+  chemical_symbols:
+  - O
+  - Hf
+  correlation: 3
+  cutoff: 6.0
+  gate: silu
+  hidden_irreps: 32x0e + 32x1o + 32x2e
+  max_ell: 3
+  max_neighbors: 50
+  num_cutoff_basis: 5
+  num_interactions: 2
+  num_radial_basis: 8
+  otf_graph: false
+  regress_forces: true
+  scaling: rms_forces_scaling
+  shifting: true
+  use_pbc: true
+model_name: mace
+noddp: false
+optim:
+  batch_size: 16
+  ema_decay: 0.99
+  energy_coefficient: 1
+  eval_batch_size: 16
+  force_coefficient: 1
+  loss_energy: energy_per_atom_mse
+  loss_force: force_per_dim_mse
+  lr_initial: 0.01
+  max_epochs: 65
+  num_test: 150
+  num_train: 1200
+  num_val: 150
+  num_workers: 2
+  optimizer: Adam
+  optimizer_params:
+    amsgrad: false
+  scheduler: LinearLR
+  weight_decay: 5.0e-07
+save_ckpt_every_epoch: 20
+slurm: {}
+task:
+  dataset: lmdb
+  description: Regressing to energies and forces for DFT trajectories of HfO
+  eval_on_free_atoms: false
+  metrics:
+  - energy_per_atom_mae
+  - energy_per_atom_mse
+  - forces_mae
+  - forces_mse
+  primary_metric: forces_mse
+  train_on_free_atoms: false
+test_dataset:
+  src: datasets/HfO/atom_graph_rmax6.0_maxneighbor50/test.lmdb
+val_dataset:
+  src: datasets/HfO/atom_graph_rmax6.0_maxneighbor50/valid.lmdb
+
+MACEWrap(
+  (mace_model): ScaleShiftMACE(
+    (node_embedding): LinearNodeEmbeddingBlock(
+      (linear): Linear(2x0e -> 32x0e | 64 weights)
+    )
+    (radial_embedding): RadialEmbeddingBlock(
+      (bessel_fn): BesselBasis(r_max=6.0, num_basis=8, trainable=False)
+      (cutoff_fn): PolynomialCutoff(p=5.0, r_max=6.0)
+    )
+    (spherical_harmonics): SphericalHarmonics()
+    (atomic_energies_fn): AtomicEnergiesBlock(energies=[-11.4589, -5.7294])
+    (interactions): ModuleList(
+      (0): RealAgnosticResidualInteractionBlock(
+        (linear_up): Linear(32x0e -> 32x0e | 1024 weights)
+        (conv_tp): TensorProduct(32x0e x 1x0e+1x1o+1x2e+1x3o -> 32x0e+32x1o+32x2e+32x3o | 128 paths | 128 weights)
+        (conv_tp_weights): FullyConnectedNet[8, 64, 64, 64, 128]
+        (linear): Linear(32x0e+32x1o+32x2e+32x3o -> 32x0e+32x1o+32x2e+32x3o | 4096 weights)
+        (skip_tp): FullyConnectedTensorProduct(32x0e x 2x0e -> 32x0e+32x1o+32x2e | 2048 paths | 2048 weights)
+        (reshape): reshape_irreps()
+        (edge_variant_gf): EdgeVariantGF()
+      )
+      (1): RealAgnosticResidualInteractionBlock(
+        (linear_up): Linear(32x0e+32x1o+32x2e -> 32x0e+32x1o+32x2e | 3072 weights)
+        (conv_tp): TensorProduct(32x0e+32x1o+32x2e x 1x0e+1x1o+1x2e+1x3o -> 96x0e+160x1o+160x2e+128x3o | 544 paths | 544 weights)
+        (conv_tp_weights): FullyConnectedNet[8, 64, 64, 64, 544]
+        (linear): Linear(96x0e+160x1o+160x2e+128x3o -> 32x0e+32x1o+32x2e+32x3o | 17408 weights)
+        (skip_tp): FullyConnectedTensorProduct(32x0e+32x1o+32x2e x 2x0e -> 32x0e | 2048 paths | 2048 weights)
+        (reshape): reshape_irreps()
+        (edge_variant_gf): EdgeVariantGF()
+      )
+    )
+    (products): ModuleList(
+      (0): EquivariantProductBasisBlock(
+        (symmetric_contractions): SymmetricContraction(
+          (contractions): ModuleList(
+            (0): Contraction(
+              (contractions_weighting): ModuleList(
+                (0-1): 2 x GraphModule()
+              )
+              (contractions_features): ModuleList(
+                (0-1): 2 x GraphModule()
+              )
+              (weights): ParameterList(
+                  (0): Parameter containing: [torch.float32 of size 2x4x32 (cuda:0)]
+                  (1): Parameter containing: [torch.float32 of size 2x1x32 (cuda:0)]
+              )
+              (graph_opt_main): GraphModule()
+            )
+            (1): Contraction(
+              (contractions_weighting): ModuleList(
+                (0-1): 2 x GraphModule()
+              )
+              (contractions_features): ModuleList(
+                (0-1): 2 x GraphModule()
+              )
+              (weights): ParameterList(
+                  (0): Parameter containing: [torch.float32 of size 2x6x32 (cuda:0)]
+                  (1): Parameter containing: [torch.float32 of size 2x1x32 (cuda:0)]
+              )
+              (graph_opt_main): GraphModule()
+            )
+            (2): Contraction(
+              (contractions_weighting): ModuleList(
+                (0-1): 2 x GraphModule()
+              )
+              (contractions_features): ModuleList(
+                (0-1): 2 x GraphModule()
+              )
+              (weights): ParameterList(
+                  (0): Parameter containing: [torch.float32 of size 2x7x32 (cuda:0)]
+                  (1): Parameter containing: [torch.float32 of size 2x1x32 (cuda:0)]
+              )
+              (graph_opt_main): GraphModule()
+            )
+          )
+        )
+        (linear): Linear(32x0e+32x1o+32x2e -> 32x0e+32x1o+32x2e | 3072 weights)
+      )
+      (1): EquivariantProductBasisBlock(
+        (symmetric_contractions): SymmetricContraction(
+          (contractions): ModuleList(
+            (0): Contraction(
+              (contractions_weighting): ModuleList(
+                (0-1): 2 x GraphModule()
+              )
+              (contractions_features): ModuleList(
+                (0-1): 2 x GraphModule()
+              )
+              (weights): ParameterList(
+                  (0): Parameter containing: [torch.float32 of size 2x4x32 (cuda:0)]
+                  (1): Parameter containing: [torch.float32 of size 2x1x32 (cuda:0)]
+              )
+              (graph_opt_main): GraphModule()
+            )
+          )
+        )
+        (linear): Linear(32x0e -> 32x0e | 1024 weights)
+      )
+    )
+    (readouts): ModuleList(
+      (0): LinearReadoutBlock(
+        (linear): Linear(32x0e+32x1o+32x2e -> 1x0e | 32 weights)
+      )
+      (1): NonLinearReadoutBlock(
+        (linear_1): Linear(32x0e -> 16x0e | 512 weights)
+        (non_linearity): Activation [x] (16x0e -> 16x0e)
+        (linear_2): Linear(16x0e -> 1x0e | 16 weights)
+      )
+    )
+    (scale_shift): ScaleShiftBlock(scale=1.941066, shift=-0.000005)
+  )
+)
+model num of parameters: 526960

@@ -38,6 +38,14 @@ Masked_EVGF_MACE_AllENS/codebases/*
 !Masked_EVGF_MACE_AllENS/codebases/mace/mace/
 !Masked_EVGF_MACE_AllENS/codebases/mace/mace/modules
 
+
+Distributed_Masked_EVGF_MACE/datasets/HfO/
+Distributed_Masked_EVGF_MACE/codebases/*
+!Distributed_Masked_EVGF_MACE/codebases/mace/mace/modules
+!Distributed_Masked_EVGF_MACE/codebases/mace/
+!Distributed_Masked_EVGF_MACE/codebases/mace/mace/
+!Distributed_Masked_EVGF_MACE/codebases/mace/mace/modules
+
 *.xyz
 *.lmdb
 

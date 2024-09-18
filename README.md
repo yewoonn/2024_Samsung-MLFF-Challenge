@@ -1,4 +1,4 @@
-# 2024_Samsung-AI-Challenge: Machine Learning Force Fields
+# Samsung AI Challenge: Machine Learning Force Fields (2024)
 
 MACE 모델을 기반으로 입력된 원자 구조로부터 시스템의 에너지 및 힘을 예측하고 모델의 에너지 예측 값에 대한 uncertainty quantification을 모두 출력하는 모델입니다.
 기존의 MACE 모델에서 각 과정 별로 나누어 변형해보았습니다. <br>

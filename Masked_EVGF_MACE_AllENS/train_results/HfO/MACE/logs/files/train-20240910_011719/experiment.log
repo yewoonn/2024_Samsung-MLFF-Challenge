@@ -1,0 +1,142 @@
+2024-09-10 01:17:20 (INFO): In the given configuration file or the configuration saved in the checkpoint, `normalize_labels` is set as `True` 
+2024-09-10 01:17:20 (INFO):   MACE does not need OCP normalizers, instead it uses own normalization strategy.
+2024-09-10 01:17:20 (INFO):   Hence `normalize_labels` will be changed as `False` to turn off the OCP normalizer operation.
+2024-09-10 01:17:20 (INFO):   You can control their own normalization strategy by changing `scaling` and `shifting` in the model configuration.
+2024-09-10 01:17:20 (INFO): Hidden irreps: 32x0e + 32x1o + 32x2e
+2024-09-10 01:17:20 (INFO): z_table : AtomicNumberTable: (8, 72)
+2024-09-10 01:17:20 (INFO): Loading train dataset (type: lmdb)
+2024-09-10 01:17:20 (INFO):  - datasets/HfO/atom_graph_rmax6.0_maxneighbor50/train.lmdb
+2024-09-10 01:17:20 (INFO): Loading validation dataset (type: lmdb)
+2024-09-10 01:17:20 (INFO):  - datasets/HfO/atom_graph_rmax6.0_maxneighbor50/valid.lmdb
+2024-09-10 01:17:20 (INFO): Loading test dataset (type: lmdb)
+2024-09-10 01:17:20 (INFO):  - datasets/HfO/atom_graph_rmax6.0_maxneighbor50/test.lmdb
+2024-09-10 01:17:20 (INFO): Load the computed results from datasets/HfO/atom_graph_rmax6.0_maxneighbor50/MACE_statistics.pt
+2024-09-10 01:17:20 (INFO): Atomic energies: [-11.458882089641774, -5.729441044820888]
+2024-09-10 01:17:20 (INFO): Average number of neighbors: 49.99997329711914
+2024-09-10 01:17:20 (INFO): Loading model: mace
+2024-09-10 01:17:22 (INFO): Loaded MACEWrap with 526960 parameters.
+2024-09-10 01:17:22 (INFO): 
+amp: false
+cmd:
+  checkpoint_dir: train_results/HfO/MACE/checkpoints/train-20240910_011719
+  identifier: train
+  logs_dir: train_results/HfO/MACE/logs/files/train-20240910_011719
+  print_every: 100
+  resume: false
+  seed: 0
+  show_eval_progressbar: false
+  timestamp_id: train-20240910_011719
+data_config_style: OCP
+dataset:
+  normalize_labels: false
+  normalize_labels_json: datasets/HfO/atom_graph_rmax6.0_maxneighbor50/normalize_stats.json
+  per_atom: true
+  src: datasets/HfO/atom_graph_rmax6.0_maxneighbor50/train.lmdb
+gpus: 1
+local_rank: 0
+logger: files
+model_attributes:
+  E0s: average
+  MLP_irreps: 16x0e
+  atomic_energies:
+  - !!python/object/apply:numpy.core.multiarray.scalar
+    - &id001 !!python/object/apply:numpy.dtype
+      args:
+      - f8
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - -1
+      - -1
+      - 0
+    - !!binary |
+      j3bfl/LqJsA=
+  - !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      kHbfl/LqFsA=
+  atomic_inter_scale: 1.9410662651062012
+  atomic_inter_shift: -5.043370095483279e-06
+  avg_num_neighbors: 49.99997329711914
+  chemical_symbols:
+  - O
+  - Hf
+  correlation: 3
+  cutoff: 6.0
+  gate: silu
+  hidden_irreps: 32x0e + 32x1o + 32x2e
+  max_ell: 3
+  max_neighbors: 50
+  num_cutoff_basis: 5
+  num_interactions: 2
+  num_radial_basis: 8
+  otf_graph: false
+  regress_forces: true
+  scaling: rms_forces_scaling
+  shifting: true
+  use_pbc: true
+model_name: mace
+noddp: false
+optim:
+  batch_size: 16
+  ema_decay: 0.99
+  energy_coefficient: 1
+  eval_batch_size: 16
+  force_coefficient: 1
+  loss_energy: energy_per_atom_mse
+  loss_force: force_per_dim_mse
+  lr_initial: 0.01
+  max_epochs: 2
+  num_test: 150
+  num_train: 1200
+  num_val: 150
+  num_workers: 2
+  optimizer: Adam
+  optimizer_params:
+    amsgrad: false
+  scheduler: LinearLR
+  weight_decay: 5.0e-07
+save_ckpt_every_epoch: 20
+slurm: {}
+task:
+  dataset: lmdb
+  description: Regressing to energies and forces for DFT trajectories of HfO
+  eval_on_free_atoms: false
+  metrics:
+  - energy_per_atom_mae
+  - energy_per_atom_mse
+  - forces_mae
+  - forces_mse
+  primary_metric: forces_mse
+  train_on_free_atoms: false
+test_dataset:
+  src: datasets/HfO/atom_graph_rmax6.0_maxneighbor50/test.lmdb
+val_dataset:
+  src: datasets/HfO/atom_graph_rmax6.0_maxneighbor50/valid.lmdb
+
+2024-09-10 01:20:24 (INFO): [train] epoch 1.0 (step 75): energy_per_atom_mae 0.10890 energy_per_atom_rmse 0.16889 forces_mae 0.60412 forces_rmse 0.90902 loss 0.85484 lr 5.07e-03
+2024-09-10 01:20:46 (INFO): [val] epoch 1.0: energy_per_atom_mae 0.18732 energy_per_atom_rmse 0.30123 forces_mae 1.00893 forces_rmse 1.46725 loss 2.21927
+2024-09-10 01:20:46 (INFO): 1 epoch elapsed time: 204.8 sec
+2024-09-10 01:21:43 (INFO): [train] epoch 1.3 (step 100): energy_per_atom_mae 0.04326 energy_per_atom_rmse 0.05455 forces_mae 0.30417 forces_rmse 0.41697 loss 0.17684 lr 3.40e-03
+2024-09-10 01:23:37 (INFO): [train] epoch 2.0 (step 150): energy_per_atom_mae 0.03444 energy_per_atom_rmse 0.04540 forces_mae 0.26112 forces_rmse 0.36420 loss 0.13470 lr 6.67e-05
+2024-09-10 01:23:58 (INFO): [val] epoch 2.0: energy_per_atom_mae 0.16216 energy_per_atom_rmse 0.20202 forces_mae 0.65938 forces_rmse 0.95859 loss 0.94916
+2024-09-10 01:23:58 (INFO): 2 epoch elapsed time: 192.1 sec
+2024-09-10 01:23:58 (INFO): train() elapsed time: 396.9 sec
+2024-09-10 01:23:58 (INFO): Performing the final evaluation (last model)
+2024-09-10 01:23:58 (INFO): Evaluating on train ...
+2024-09-10 01:26:37 (INFO): Evaluating on val ...
+2024-09-10 01:26:57 (INFO): Evaluating on test ...
+2024-09-10 01:27:17 (INFO): 
++---------+---------------------+----------------------+------------+-------------+
+| dataset | energy_per_atom_mae | energy_per_atom_rmse | forces_mae | forces_rmse |
++---------+---------------------+----------------------+------------+-------------+
+|  train  |        153.4        |        186.9         |   642.5    |    924.3    |
+|   val   |        162.2        |        202.0         |   659.4    |    958.6    |
+|   test  |        147.1        |        174.7         |   622.8    |    889.1    |
++---------+---------------------+----------------------+------------+-------------+
+2024-09-10 01:27:17 (INFO): Total time taken: 598.4 sec (0.2 h)

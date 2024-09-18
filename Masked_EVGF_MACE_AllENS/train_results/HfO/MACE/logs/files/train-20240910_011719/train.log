@@ -1,0 +1,3 @@
+epoch 1.0 (step 75): energy_per_atom_mae 0.10890 energy_per_atom_rmse 0.16889 forces_mae 0.60412 forces_rmse 0.90902 loss 0.85484 lr 5.07e-03
+epoch 1.3 (step 100): energy_per_atom_mae 0.04326 energy_per_atom_rmse 0.05455 forces_mae 0.30417 forces_rmse 0.41697 loss 0.17684 lr 3.40e-03
+epoch 2.0 (step 150): energy_per_atom_mae 0.03444 energy_per_atom_rmse 0.04540 forces_mae 0.26112 forces_rmse 0.36420 loss 0.13470 lr 6.67e-05

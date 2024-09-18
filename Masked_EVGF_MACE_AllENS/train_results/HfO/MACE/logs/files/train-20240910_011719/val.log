@@ -1,0 +1,2 @@
+epoch 1.0: energy_per_atom_mae 0.18732 energy_per_atom_rmse 0.30123 forces_mae 1.00893 forces_rmse 1.46725 loss 2.21927
+epoch 2.0: energy_per_atom_mae 0.16216 energy_per_atom_rmse 0.20202 forces_mae 0.65938 forces_rmse 0.95859 loss 0.94916

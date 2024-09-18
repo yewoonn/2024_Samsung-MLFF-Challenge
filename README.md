@@ -4,7 +4,7 @@ MACE 모델을 기반으로 입력된 원자 구조로부터 시스템의 에너
 기존의 MACE 모델에서 각 과정 별로 나누어 변형해보았습니다. <br>
 
 1. **Preprocess 단계**에서는 엣지의 연결된 노드 쌍(Hf-Hf/Hf-O/O-O)을 구분하여 일정 비율 만큼의 종류 별 엣지가 이웃 노드로 설정되도록 변형하였습니다.<br>
-2. **Train 단계**에서는 EVGF(Edge-Varient Graph Filter)를 추가하여 엣지 별 가중치를 함께 학습하도록 하였습니다.<br>
+2. **Train 단계**에서는 EVGF(Edge-Varient Graph Filter)를 추가하여 엣지, 노드(Hf,O) 별 가중치를 함께 학습하도록 하였습니다.<br>
 3. **Evaluate 단계**에서는 에너지 예측 값에 대한 Uncertainty를 출력하도록 하고 앙상블을 추가하였습니다.<br>
 
 자세한 내용은 하단에 있는 내용을 참고해주세요.

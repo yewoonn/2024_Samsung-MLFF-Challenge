@@ -8,13 +8,6 @@
 - Uncertainty : 체크포인트 리스트의 모든 모델의 에너지의 표준편차로 uncertainty 계산
 (/src/md_evaluate/base_evaluator.py의 self.ckpt_list에 체크포인트 추가)
 
-### 제출 결과
-None
-
-    |ID|EF-metric|OOD|
-    |--|---------|---|
-
-
 ### 명령어
 1. Train : ./run_train.sh [GPU] MACE HfO
     ./run_train.sh 0 MACE HfO

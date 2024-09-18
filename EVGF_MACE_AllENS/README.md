@@ -8,16 +8,6 @@
 - Uncertainty : 체크포인트 리스트의 모든 모델의 에너지의 표준편차로 uncertainty 계산
 (/src/md_evaluate/base_evaluator.py의 self.ckpt_list에 체크포인트 추가)
 
-### 제출 결과
-- **ID#1** 0907_pred_by_mace.csv : mace + EdgeNet 2hop epoch 100 + All ensemble 
-    (**Epoch50**train-20240907_002457, **Epoch100**train-20240906_185511, **Epoch200**train-20240907_002403, train-20240907_002457/best_checkpoint.pt)
-- **ID#2** 0908_pred_by_mace.csv : mace + EdgeNet 3hop epoch 100 + All ensemble (train-20240907_152048/best_checkpoint.pt, ckpt_ep60)
-
-    |ID|EF-metric|OOD|
-    |--|---------|---|
-    |#1 | 5.7934839565 | 0.5018044444 |
-    |#2 | 6.0205907807 | 0.5810511111 |
-
 ### 명령어
 1. Train : ./run_train.sh [GPU] MACE HfO
     ./run_train.sh 0 MACE HfO

@@ -8,10 +8,6 @@
 - Uncertainty : 체크포인트 리스트의 모든 모델의 에너지의 표준편차로 uncertainty 계산
 (yewon/Samsung_MLFF_Models/EVGF_MACE_UncertaintyENS/src/md_evaluate/base_evaluator.py의 self.ckpt_list에 체크포인트 추가)
 
-### 제출 결과
-- 0908_pred_by_mace_onlyUn.csv : mace + EdgeNet 4hop epoch 100 + Only Uncertainty ensemble (train-20240907_152048/best_checkpoint.pt, ckpt_ep60) 
--> 5.6837979706/0.5816688889
-
 ### 명령어
 1. Train : ./run_train.sh [GPU] MACE HfO
     ./run_train.sh 0 MACE HfOcd

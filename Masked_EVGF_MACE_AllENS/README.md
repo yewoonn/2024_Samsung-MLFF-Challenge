@@ -23,7 +23,7 @@
 
 ### 수정 파일
 1. Train
-    - /codebases/mace/mace/modules/blocks.py : EVGF 클래스 추가 및 Interaction 블럭(RealAgnosticResidualInteractionBlock)에 EVGF 적용
+    - /codebases/mace/mace/modules/blocks.py : Masked EVGF 클래스 추가 및 Interaction 블럭(RealAgnosticResidualInteractionBlock)에 EVGF 적용
     - /codebases/mace/mace/modules/models.py : ScaleShiftMACE에 GSO 함수 생성 및 설정
 
 2. Evaluate

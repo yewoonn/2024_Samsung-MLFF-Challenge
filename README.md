@@ -33,7 +33,16 @@ MACE 모델을 기반으로 입력된 원자 구조로부터 시스템의 에너
         - 그래프 생성 시 거리 분포 별로 엣지 쌍(Hf-O,O-O,Hf-Hf) 구분하여 이웃 노드 선택   
 </pre>
 
+## Reference Paper & Code
+**1) Benchmark of Machine Learning Force Fields for Semiconductor Simulations: Datasets, Metrics, and Comparative Analysis**
+- [Paper](https://neurips.cc/virtual/2023/poster/73500)
+- [Github](https://github.com/SAITPublic/MLFF-Framework.git)
 
+
+**2) EdgeNets:Edge Varying Graph Neural Networks**
+- [Paper](http://arxiv.org/abs/2001.07620)
+- [Github](https://github.com/alelab-upenn/graph-neural-networks)
+  
 
 ## 1️⃣ MACE_UncertaintyENS
 ### Train
